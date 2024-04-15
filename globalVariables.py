@@ -1,0 +1,1 @@
+_APP_NAME_ = "keep Me Awake"

@@ -1,0 +1,28 @@
+QPushButton {
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 80px;
+    margin: 4px 2px;
+    border-radius: 10px;
+}
+
+#btn_activate {
+    background-color: #4CAF50;
+}
+
+#btn_deactivate {
+    background-color: #d60202;
+}
+
+#chk_display{
+    max-height: 50px;
+    max-width: 50px;
+}
+
+#lbl_display{
+    font-size: 30px;
+    max-height: 50px;
+}
