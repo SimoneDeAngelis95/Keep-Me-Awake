@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QCheckBox
 from PyQt6.QtWidgets import QLabel
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtCore import QFile, QTextStream
-import globalVariables as GB
+import globalVariables as GV
 import subprocess
 
 def loadStyle(filename):
@@ -23,31 +23,31 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.coffee = None # variabile che conterrà il subprocess che terrà sveglio il mac
+        self.coffee = None # variable to store the subprocess that keeps the Mac awake
 
         self.setFixedSize(650, 200)
-        self.setWindowTitle(GB._APP_NAME_)
+        self.setWindowTitle(GV.APP_NAME + " - " + GV.APP_VERSION)
 
         self.chk_display = QCheckBox(self)
         self.chk_display.setObjectName("chk_display")
-        self.chk_display.setStyleSheet(loadStyle("style.css"))
+        self.chk_display.setStyleSheet(loadStyle(GV.STYLE_FILE))
         
         self.lbl_display = QLabel(self)
         self.lbl_display.setText("Keep Display On")
         self.lbl_display.setObjectName("lbl_display")
-        self.lbl_display.setStyleSheet(loadStyle("style.css"))
+        self.lbl_display.setStyleSheet(loadStyle(GV.STYLE_FILE))
         
         self.btn_activate = QPushButton(self)
         self.btn_activate.setText("Keep Me Awake!")
         self.btn_activate.clicked.connect(self.activateClicked)
         self.btn_activate.setObjectName("btn_activate")
-        self.btn_activate.setStyleSheet(loadStyle("style.css"))
+        self.btn_activate.setStyleSheet(loadStyle(GV.STYLE_FILE))
 
         self.btn_deactivate = QPushButton(self)
         self.btn_deactivate.setText("Let Me Sleep!")
         self.btn_deactivate.clicked.connect(self.deactivateClicked)
         self.btn_deactivate.setObjectName("btn_deactivate")
-        self.btn_deactivate.setStyleSheet(loadStyle("style.css"))
+        self.btn_deactivate.setStyleSheet(loadStyle(GV.STYLE_FILE))
         self.btn_deactivate.hide()
         
         # ===== LAYOUTS =====
@@ -68,8 +68,10 @@ class MainWindow(QWidget):
             if not self.coffee:
                 if self.chk_display.isChecked():
                     self.coffee = subprocess.Popen(["caffeinate", "-d"])    # l'opzione -d mantiene attivo il display
+                    self.chk_display.setEnabled(False)
                 else:
                     self.coffee = subprocess.Popen(["caffeinate", "-i"])    # l'opzione -i semplicemente non manda in stop il mac
+                    self.chk_display.setEnabled(True)
         except:
             msg = QMessageBox()
             msg.setText("Error!")
