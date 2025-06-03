@@ -17,7 +17,7 @@ You can select between two modes:
 
 ## Screenshot
 
-![Keep Me Awake Screenshot](screenshot.png)
+![Keep Me Awake Screenshot](docs/screenshot.png)
 
 ## License
 
